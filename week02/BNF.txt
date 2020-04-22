@@ -1,0 +1,61 @@
+"a"
+
+"b"
+
+<Program>:= "a"+ | "b"+
+<Program>:= <Program> "a"+ | <Program> "b"+
+
+<Number> = "0" | "1" | "2" | ... | "9"
+
+<DecimalNumber> = "0" | (("1" | "2" | ...... | "9") <Number>* )       // 十进制 整数
+
+|| 正则
+
+/0|[1-9][0-9]*/
+
+
+// 运算
+
+<MultiplicativeExpression> = <DecimalNumber> | <MultiplicativeExpression> "*" <DecimalNumber> | <MultiplicativeExpression> "/" <DecimalNumber> // 乘法除法
+
+
+
+<AddtiveExpression> = <DecimalNumber> | <AddtiveExpression> "+" <DecimalNumber> // 加法
+
+||
+
+<AddtiveExpression> = <MultiplicativeExpression> | <AddtiveExpression> "+" <MultiplicativeExpression> | <AddtiveExpression> "-" <MultiplicativeExpression> // 加法减法
+
+
+
+
+<LogicalExpression> = <AddtiveExpression> | <LogicalExpression> "||" <AddtiveExpression> | <LogicalExpression> "&&" <AddtiveExpression> 
+
+
+<PrimaryExpression> = <DecimalNumber> | "(" <LogicalExpression> ")"
+// 四则运算
+
+1 + 2 * 3
+
+
+无限制：
+    <a> <b> ::= "c" <d>
+
+上下文相关：
+    <a> <b> <c> = <a> "x" <c> // 一定只能变中间的那个
+
+    "```四则运算" <LogicalExpression> "```" = "```四则运算" <AddtiveExpression> | <LogicalExpression> "||" <AddtiveExpression> | <LogicalExpression> "&&" <AddtiveExpression> "```"
+
+上下文无关：
+    <a> ::= ?
+
+正则文法:
+    <a> ::= <a>?
+    只允许左递归
+
+
+// 2型文法
+
+      get a {return 1},
+      get:1
+    }
